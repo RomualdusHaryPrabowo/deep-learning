@@ -1,4 +1,4 @@
-# 🧠 Fundamental Deep Learning
+# 🧠Deep Learning
 
 Repository ini merupakan dokumentasi perjalanan saya dalam mempelajari ** Fundamental Deep Learning**.
 
