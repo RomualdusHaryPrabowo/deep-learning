@@ -1,6 +1,6 @@
 # 🧠Deep Learning
 
-Repository ini merupakan dokumentasi perjalanan saya dalam mempelajari ** Fundamental Deep Learning**.
+Repository ini merupakan dokumentasi perjalanan saya dalam mempelajari **Deep Learning**.
 
 Seluruh isi di dalam repository ini akan terus berkembang seiring dengan proses belajar yang saya lakukan, mulai dari memahami konsep dasar hingga implementasi dalam berbagai bentuk latihan dan proyek.
 
