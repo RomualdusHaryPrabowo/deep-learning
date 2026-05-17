@@ -16,10 +16,8 @@ plt.title("Original Image")
 plt.imshow(image)
 plt.axis('off')
 
-# ==========================================================
-# 2. PROSES TRANSFORMASI KECERAHAN (COLOR JITTER)
+# Proses transformasi kecerahan 
 # Keterangan: Nilai 1.0 adalah kecerahan asli gambar.
-# ==========================================================
 
 # A. Kecerahan Acak Dua Arah (Gelap/Terang)
 # Memasukkan 1 nilai (0.5) akan membuat rentang [1.0 - 0.5, 1.0 + 0.5] -> [0.5, 1.5].
@@ -47,9 +45,7 @@ darkness_adjustment = transforms.Compose([
 ])
 darkened_image = darkness_adjustment(image)
 
-# ==========================================================
-# 3. MENAMPILKAN HASIL TRANSFORMASI
-# ==========================================================
+# Hasil transformasi 
 
 # Menempatkan gambar acak di posisi 2
 plt.subplot(1, 4, 2)
