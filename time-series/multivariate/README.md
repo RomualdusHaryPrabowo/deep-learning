@@ -1,100 +1,152 @@
 # 📊 Household Electric Power Forecasting
-Project ini dibuat untuk pembelajaran *Time Series Forecasting* menggunakan Deep Learning.
 
-Project ini bertujuan untuk melakukan **prediksi konsumsi listrik rumah tangga** menggunakan model *Deep Learning* berbasis **TensorFlow (MLP/Dense Neural Network)**. Dataset yang digunakan merupakan data historis konsumsi listrik dengan pendekatan *time series forecasting*.
+Project ini dibuat untuk pembelajaran *Time Series Forecasting* menggunakan **Deep Learning** dengan framework **TensorFlow**.
+
+Project bertujuan untuk melakukan **prediksi konsumsi listrik rumah tangga** berdasarkan data historis menggunakan pendekatan *time series forecasting* berbasis **MLP (Multi-Layer Perceptron / Dense Neural Network)**.
 
 ---
 
-## 📁 Dataset
+## 📌 Features
+
+- Time Series Forecasting
+- Data Preprocessing & Normalization
+- Sliding Window Dataset
+- Deep Learning dengan TensorFlow
+- Forecasting Multi-step (24 timestep)
+- Interface prediksi menggunakan Streamlit
+
+---
+
+# 📁 Struktur Folder
+
+```bash
+multivariate/
+│
+├── implementasi-interface/
+│   └── household-electric.py
+│
+├── house-electric-power.ipynb
+├── household-electric-power.py
+├── model.h5
+└── README.md
+```
+
+---
+
+# 📂 Dataset
+
+Dataset berisi data historis konsumsi listrik rumah tangga untuk proses forecasting.
 
 Dataset diambil dari Google Drive:
 
-* 🔗 https://drive.google.com/uc?id=1AZRfFoyekqSYpri5183RmJjciRGz_ood
----
-
-## ⚙️ Tahapan Project
-
-### 1. Load Data
-
-Dataset dibaca menggunakan **Pandas** dan index diatur sebagai waktu (`datetime`).
+🔗 https://drive.google.com/uc?id=1AZRfFoyekqSYpri5183RmJjciRGz_ood
 
 ---
 
-### 2. Data Preprocessing
+# ⚙️ Tahapan Project
 
-Dilakukan normalisasi menggunakan metode **Min-Max Scaling**:
+## 1. Load Data
 
+Dataset dibaca menggunakan **Pandas** dan index diubah menjadi format waktu (`datetime`).
+
+---
+
+## 2. Data Preprocessing
+
+Data dinormalisasi menggunakan metode **Min-Max Scaling**:
+
+```math
+x' = \frac{x - x_{min}}{x_{max} - x_{min}}
 ```
-x' = (x - min) / (max - min)
-```
 
-**Tujuan:**
+### Tujuan Normalisasi
 
-* Menyamakan skala data
-* Mempercepat proses training model
+- Menyamakan skala data
+- Mempercepat proses training
+- Membantu model lebih stabil saat training
 
 ---
 
-### 3. Split Data
+## 3. Split Dataset
 
 Dataset dibagi menjadi:
 
-* **50% Training**
-* **50% Validation**
+- **50% Training**
+- **50% Validation**
 
 ---
 
-### 4. Windowing Dataset
+## 4. Windowing Dataset
 
-Menggunakan teknik *sliding window*:
+Menggunakan teknik **Sliding Window**:
 
-* `N_PAST = 24` → data historis (input)
-* `N_FUTURE = 24` → data yang diprediksi (output)
-* `SHIFT = 1`
-
-**Output:**
-
-* X: 24 timestep sebelumnya
-* Y: 24 timestep ke depan
-
----
-
-### 5. Arsitektur Model
-
-Model menggunakan pendekatan **Multi-Layer Perceptron (MLP)**:
-
+```python
+N_PAST = 24
+N_FUTURE = 24
+SHIFT = 1
 ```
+
+### Keterangan
+
+- `N_PAST` → jumlah data historis sebagai input
+- `N_FUTURE` → jumlah data yang diprediksi
+- `SHIFT` → pergeseran window
+
+### Output
+
+- `X` → 24 timestep sebelumnya
+- `Y` → 24 timestep berikutnya
+
+---
+
+# 🧠 Arsitektur Model
+
+Model menggunakan pendekatan **Multi-Layer Perceptron (MLP)**.
+
+```text
 Input (24 x N_FEATURES)
-↓ Flatten
-↓ Dense (64, ReLU)
-↓ Dense (32, ReLU)
-↓ Dense (24 x N_FEATURES)
-↓ Reshape (24, N_FEATURES)
+        ↓
+     Flatten
+        ↓
+ Dense (64, ReLU)
+        ↓
+ Dense (32, ReLU)
+        ↓
+Dense (24 x N_FEATURES)
+        ↓
+ Reshape (24, N_FEATURES)
 ```
 
 ---
 
-## 🧠 Training Model
+# 🚀 Training Model
 
-* Optimizer: Adam (`learning_rate = 1e-3`)
-* Loss Function: Mean Absolute Error (MAE)
-* Metrics: MAE
-* Epoch: Maksimal 100
+## Konfigurasi Training
 
-### ⏹️ Early Stopping Custom
+- Optimizer: `Adam`
+- Learning Rate: `1e-3`
+- Loss Function: `Mean Absolute Error (MAE)`
+- Metrics: `MAE`
+- Epoch: `100`
+
+---
+
+# ⏹️ Early Stopping Custom
 
 Training akan otomatis berhenti jika:
 
-* MAE < 0.055
-* Validation MAE < 0.055
+```python
+MAE < 0.055
+Validation MAE < 0.055
+```
 
 ---
 
-## 📈 Hasil
+# 📈 Hasil Prediksi
 
-Model menghasilkan prediksi dalam bentuk:
+Model menghasilkan output berbentuk:
 
-```
+```python
 (batch_size, 24, N_FEATURES)
 ```
 
@@ -107,38 +159,66 @@ print(train_pred[0][0])
 
 ---
 
-## 🚀 Cara Menjalankan
+# 🌐 Menjalankan Interface Streamlit
 
-1. Install dependencies:
-
-```bash
-pip install pandas tensorflow
-```
-
-2. Jalankan script:
+Interface Streamlit berada di folder:
 
 ```bash
-python household-electric-power.py
+implementasi-interface/
+```
+
+## Jalankan Streamlit
+
+Masuk ke folder interface:
+
+```bash
+cd implementasi-interface
+```
+
+Lalu jalankan:
+
+```bash
+streamlit run household-electric.py
 ```
 
 ---
 
-## 📦 Dependencies
+# 📷 Fitur Interface
 
-* Python 3.x
-* pandas
-* tensorflow
+Interface Streamlit menyediakan fitur:
+
+- Input data forecasting
+- Menampilkan hasil prediksi
+- Visualisasi grafik forecasting
+- Load model TensorFlow (`model.h5`)
 
 ---
 
-## 💡 Catatan
+# 📦 Dependencies
 
-* Model ini menggunakan **Dense layer**, bukan LSTM/GRU, sehingga input di-*flatten*.
-* Cocok sebagai baseline model untuk time series forecasting.
+- Python 3.x
+- pandas
+- numpy
+- tensorflow
+- matplotlib
+- streamlit
+
 ---
 
-## 👨‍💻 Author
+# 💡 Catatan
+
+- Model menggunakan **Dense Layer (MLP)**, bukan LSTM atau GRU.
+- Input data di-*flatten* sebelum masuk ke Dense layer.
+- Cocok digunakan sebagai baseline model untuk pembelajaran *time series forecasting*.
+- Notebook `house-electric-power.ipynb` digunakan untuk eksperimen dan training model.
+- File `model.h5` merupakan model hasil training yang digunakan oleh interface Streamlit.
+
+---
+
+# 👨‍💻 Author
+
 **Romualdus Hary Prabowo**
 
 [![Instagram](https://img.shields.io/badge/Instagram-%23E4405F?style=for-the-badge&logo=instagram&logoColor=white)](https://www.instagram.com/hyporom._)
+
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-%230077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/hypo/)
