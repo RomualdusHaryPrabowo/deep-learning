@@ -23,7 +23,12 @@ Project bertujuan untuk melakukan **prediksi konsumsi listrik rumah tangga** ber
 multivariate/
 │
 ├── implementasi-interface/
-│   └── household-electric.py
+│   ├── household-electric.py
+│   │
+│   └── hasil-interface/
+│       ├── dashboard.png
+│       ├── forecasting-result.png
+│       └── chart.png
 │
 ├── house-electric-power.ipynb
 ├── household-electric-power.py
@@ -183,6 +188,15 @@ streamlit run household-electric.py
 
 ---
 
+# 📷 Hasil Implementasi Streamlit
+
+## Dashboard Utama
+
+![Dashboard Streamlit](implementasi-interface/hasil-interface-images/interface1.png)
+![Dashboard Streamlit](implementasi-interface/hasil-interface-images/interface2.png)
+
+---
+
 # 📷 Fitur Interface
 
 Interface Streamlit menyediakan fitur:
@@ -191,6 +205,7 @@ Interface Streamlit menyediakan fitur:
 - Menampilkan hasil prediksi
 - Visualisasi grafik forecasting
 - Load model TensorFlow (`model.h5`)
+- Dashboard visual berbasis Streamlit
 
 ---
 
